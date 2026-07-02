@@ -2,7 +2,7 @@ services:
   # 1. Flask Backend Web Service
   - type: web
     name: kisanai360-backend
-    env: python
+    runtime: python
     buildCommand: pip install -r backend/requirements.txt
     startCommand: gunicorn --bind 0.0.0.0:$PORT --chdir backend app:app
     envVars:
@@ -17,10 +17,10 @@ services:
       - key: TWILIO_FROM_NUMBER
         sync: false
 
-staticSites:
   # 2. React Frontend Static Site
-  - name: kisanai360-frontend
-    env: static
+  - type: web
+    name: kisanai360-frontend
+    runtime: static
     buildCommand: npm install --prefix frontend && npm run build --prefix frontend
     publishPath: frontend/dist
     routes:

@@ -2,7 +2,7 @@ services:
   # 1. Flask Backend Web Service
   - type: web
     name: kisanai360-backend
-    env: python
+    runtime: python
     buildCommand: pip install -r backend/requirements.txt
     startCommand: gunicorn --bind 0.0.0.0:$PORT --chdir backend app:app
     envVars:
@@ -18,10 +18,11 @@ services:
         sync: false
 
   # 2. React Frontend Static Site
-  - type: static
+  - type: web
     name: kisanai360-frontend
+    runtime: static
     buildCommand: npm install --prefix frontend && npm run build --prefix frontend
-    publishPath: frontend/dist
+    staticPublishPath: frontend/dist
     routes:
       - type: rewrite
         source: /api/*

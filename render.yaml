@@ -17,12 +17,12 @@ services:
       - key: TWILIO_FROM_NUMBER
         sync: false
 
-  # 2. React Frontend Static Site
-  - type: static
+  # 2. React Frontend Static Site (type must be 'web' with 'env: static')
+  - type: web
     name: kisanai360-frontend
     env: static
     buildCommand: npm install --prefix frontend && npm run build --prefix frontend
-    staticPublishPath: frontend/dist
+    publishPath: frontend/dist
     routes:
       - type: rewrite
         source: /api/*
